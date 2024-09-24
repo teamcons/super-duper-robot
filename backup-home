@@ -8,11 +8,12 @@ cat $LOG > $LOG2
 
 # Lets goooo
 rsync -az --info --delete --exclude=”.*” \
-                /home/teamcons   \
-                $BACKUPFOLDER \
+                /home/teamcons           \
+                $BACKUPFOLDER            \
                 | grep -v 'is uptodate' \
-                > $LOG
+                | tee $LOG
 
+# yooooo
 Notify-send “Stellas backup thingie” „Files backed up!“ --icon face-cool
 
 
