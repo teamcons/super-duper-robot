@@ -11,7 +11,7 @@ date > $LOG
 echo >> $LOG
 
 # Lets goooo
-rsync -az --info --delete --exclude=”.*” --include=".bashrc" \
+rsync -az --info --delete --exclude=”.*” \
                 /home/teamcons   \
                 $BACKUPFOLDER \
                 | grep -v 'is uptodate' \
