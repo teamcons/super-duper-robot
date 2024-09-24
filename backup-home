@@ -3,20 +3,27 @@ BACKUPFOLDER="/media/teamcons/BACKUP/slashhomeslashteamcons"
 LOG="/media/teamcons/BACKUP/backup-rsync.log"
 LOG2="/media/teamcons/BACKUP/backup-rsync-previous.log"
 
-# Keep previous
-cat $LOG > $LOG2
+# If the log is older than 3 days
+# Could do without an IF, but theres no point in agressively backing up every smol change
+# And boinging useless writes to an already old SSD
 
-# Lets goooo
-rsync -az --info --delete --exclude=”.*” \
-                /home/teamcons           \
-                $BACKUPFOLDER            \
-                | grep -v 'is uptodate' \
-                | tee $LOG
+if [[ ! $(find $LOG -mtime -3) ]] ; then
 
-# yooooo
-Notify-send “Stellas backup thingie” „Files backed up!“ --icon face-cool
+        # Keep previous log
+        cat $LOG > $LOG2
 
+    
+        # Lets goooo
+        rsync --info --recursive --delete --exclude=”.*” \
+                        /home/teamcons           \
+                        $BACKUPFOLDER            \
+                        | grep -v 'is uptodate' \
+                        | tee $LOG
+        
+        # yooooo
+        Notify-send “Stellas backup thingie” „Files backed up!“ --icon face-cool
 
+fi
 
 
 
