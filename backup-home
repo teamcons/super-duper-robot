@@ -1,0 +1,26 @@
+
+BACKUPFOLDER="/media/teamcons/BACKUP/slashhomeslashteamcons"
+LOG="/media/teamcons/BACKUP/backup-rsync.log"
+LOG2="/media/teamcons/BACKUP/backup-rsync-previous.log"
+
+# Keep previous
+cat $LOG > $LOG2
+
+# Sprotch
+date > $LOG
+echo >> $LOG
+
+# Lets goooo
+rsync -az --info --delete --exclude=”.*” --include=".bashrc" \
+                /home/teamcons   \
+                $BACKUPFOLDER \
+                | grep -v 'is uptodate' \
+                  >> $LOG
+
+Notify-send “Stellas backup thingie” „Files backed up!“ --icon face-cool
+
+
+
+
+
+
