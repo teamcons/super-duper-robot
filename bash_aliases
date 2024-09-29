@@ -40,3 +40,7 @@ alias te="toolbox enter"
 
 
 alias mediacenter="ssh -v -X 192.168.0.204"
+
+
+alias asremote="git fetch origin ; git reset --hard origin/main ; git clean -df ; git pull"
+
