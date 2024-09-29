@@ -1,20 +1,18 @@
 #!/bin/bash
 
-# Where to save everything
 WHERE="/media/teamcons/HDD Rin/"
 cd "$WHERE"
 
-# WHere to save HOME
 BACKUPFOLDER="./slashhomeslashteamcons"
 LOG="./backup-rsync.log"
 LOG2="./backup-rsync-previous.log"
 
-# Where to save System
 BACKUPIMAGE="./system-backup.img.gz"
 
 
 
-######## HOME BACKUP ########
+
+
 
 # If the log is older than 30 days
 # Could do without an IF, but theres no point in agressively backing up every smol change
@@ -25,11 +23,13 @@ if [[ ! $(find "$LOG" -mtime -30 >> /dev/null) ]] ; then
         # Keep previous log
         cat $LOG > $LOG2
 
+
+
         # Lets goooo
-        rsync -vir --delete --exclude=".*" \
+        rsync -vir --delete --exclude=".*" --exclude="pCloudDrive" --exclude="Appimages" \
                         /home/teamcons/           \
                         "$BACKUPFOLDER"            \
-                        | grep -v --line-buffered 'is uptodate' | tee $LOG
+                        | grep  --line-buffered -v 'is uptodate' | tee $LOG
 
 
         # yooooo
@@ -38,10 +38,11 @@ if [[ ! $(find "$LOG" -mtime -30 >> /dev/null) ]] ; then
 fi
 
 
+exit
 
+##########
 
-######## SYSTEM BACKUP ########
-
+#SYSTEM
 
 # If there is no file modified under 30 days to be found
 if [[ ! $(find "$BACKUPIMAGE" -mtime -30 >> /dev/null) ]] ; then
@@ -51,7 +52,9 @@ if [[ ! $(find "$BACKUPIMAGE" -mtime -30 >> /dev/null) ]] ; then
 
 
                 # Nice notif
-                notify-send "Stellas backup thingie" "System Backed up" --icon face-cool
+                notify-send "Stellas backup thingie" "System backed up" --icon face-cool
+                
+                
 fi
 
 
