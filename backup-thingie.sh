@@ -16,20 +16,20 @@ BACKUPIMAGE="./system-backup.img.gz"
 
 ######## HOME BACKUP ########
 
-# If the log is older than 3 days
+# If the log is older than 30 days
 # Could do without an IF, but theres no point in agressively backing up every smol change
 # And boinging useless writes to an already old SSD
 
-if [[ ! $(find "$LOG" -mtime -3 >> /dev/null) ]] ; then
+if [[ ! $(find "$LOG" -mtime -30 >> /dev/null) ]] ; then
 
         # Keep previous log
-        cat "$LOG" > "$LOG2"
+        cat $LOG > $LOG2
 
         # Lets goooo
         rsync -vir --delete --exclude=".*" \
-                        /home/teamcons           \
+                        /home/teamcons/           \
                         "$BACKUPFOLDER"            \
-                        | grep -v 'is uptodate' | tee "$LOG"
+                        | grep -v --line-buffered 'is uptodate' | tee $LOG
 
 
         # yooooo
@@ -51,7 +51,7 @@ if [[ ! $(find "$BACKUPIMAGE" -mtime -30 >> /dev/null) ]] ; then
 
 
                 # Nice notif
-                notify-send "Stellas backup thingie" "Backed up" --icon face-cool
+                notify-send "Stellas backup thingie" "System Backed up" --icon face-cool
 fi
 
 
