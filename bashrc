@@ -30,10 +30,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -42,16 +38,6 @@ esac
 
 
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -81,57 +67,8 @@ fi
 
 # User specific aliases and functions
 
-### COULEURS ###
-STOP="$(tput sgr0)"
-BOLD="$(tput bold)"
-CLOSE="$(tput sgr0 ; tput bold)"
-
-red="$(tput setaf 1)"
-green="$(tput setaf 2)"
-yellow="$(tput setaf 3)"
-blue="$(tput setaf 4)"
-pink="$(tput setaf 5)"
-cyan="$(tput setaf 6)"
-white="$(tput setaf 7)"
-
-RED="$(tput bold ; tput setaf 1)"
-GREEN="$(tput bold ; tput setaf 2)"
-YELLOW="$(tput bold ; tput setaf 3)"
-BLUE="$(tput bold ; tput setaf 4)"
-PINK="$(tput bold ; tput setaf 5)"
-CYAN="$(tput bold ; tput setaf 6)"
-WHITE="$(tput bold ; tput setaf 7)"
-
-
-
-
-### CONFORT ###
-alias ls='ls --group-directories-first --color=auto -F'
-alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias grep='grep --color=tty -d skip'
-alias cp="cp -vRi"
-alias du='du -h'
-alias rm='rm -vri'
-alias mkdir='mkdir -v'
-alias mv='mv -v'
-alias chmod='chmod -v'
-alias free="free -mh"
-alias df='df -h'
-
-
-### COMMANDES CUSTOM ###
-alias rf='clear && source ~/.bashrc'
-alias e='exit'
-alias x="chmod +x"
-alias sn='sudo nano'
-
-alias e=exit
-alias o=xdg-open
-alias te="toolbox enter"
-
-
-
+source ~/.bash_colors
+source ~/.bash_aliases
 
 
 ###################################################
@@ -146,10 +83,11 @@ function ss_local()
 {
 	printf '%*s\n' "${COLUMNS}" '' | tr ' ' -
 	echo "$CYAN[LOCAL]$CLOSE"
-	echo "$BLUE > OS: $CLOSE$(cat /etc/*-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/"//g')"
+	echo "$BLUE > OS: $CLOSE$(cat /etc/os-release | grep -v "UBUNTU" | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/"//g')"
 	echo "$BLUE > Rechner:$CLOSE $HOSTNAME" 
 	echo "$BLUE > In betrieb:$CLOSE $(uptime -p)"
-	echo "$BLUE > Freier speicherplatz:$CLOSE $(df -hT / | grep / | awk '{print $5}') frei ($(df -hT / | grep / | awk '{print $6}') benutzt)$CLOSE"
+	echo "$BLUE > Speicherplatz Root:$CLOSE $(df -hT '/' | grep '/' | awk '{print $5}') frei ($(df -hT / | grep / | awk '{print $6}') benutzt)$CLOSE"
+	echo "$BLUE > Speicherplatz Home:$CLOSE $(df -hT '/home' | grep '/home' | awk '{print $5}') frei ($(df -hT / | grep / | awk '{print $6}') benutzt)$CLOSE"
 	printf '%*s\n' "${COLUMNS}" '' | tr ' ' -
 	#echo
 	#echo "$CYAN[DEVICES]$CLOSE"
@@ -187,8 +125,6 @@ if [[ "$(hostname)" == "toolbox" ]];
 	then
 		# enclose nonprintable in \[ and \] to avoid display bug
 		PS1="\[\n\]\[$YELLOW\] \[📦TOOLBOX\]\[$BLUE\]\$PWD\n \[${YELLOW}\]-->\[$STOP\] "	
-	
-	
 	
 	#Normal prompt
 	else
@@ -239,7 +175,7 @@ git clean -ffxd
 #zenity --list --checklist --column=what --column="where" $(cat /var/home/teamcons/.config/gtk-3.0/bookmarks | tr '\n' ' ') --separator="\n"
 
 
-alias whitesur="./install.sh -l -c Light --default -t" 
+alias whitesur="./install.sh -l -c Light --round --shell -i simple -t" 
 #override GTK_THEME=WhiteSur-Light-green
 # ICON_THEME=bloom-classic-fixed
 #export GTK_THEME=Yaru
