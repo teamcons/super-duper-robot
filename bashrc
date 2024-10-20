@@ -72,69 +72,58 @@ source ~/.bash_aliases
 
 
 ###################################################
-function ss_welcome()
-{
 echo "$GREEN Hallo ! =)$CLOSE"
 echo
-}
 
-###################################################
-function ss_local()
-{
-	printf '%*s\n' "${COLUMNS}" '' | tr ' ' -
-	echo "$CYAN[LOCAL]$CLOSE"
-	echo "$BLUE > OS: $CLOSE$(cat /etc/os-release | grep -v "UBUNTU" | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/"//g')"
-	echo "$BLUE > Rechner:$CLOSE $HOSTNAME" 
-	echo "$BLUE > In betrieb:$CLOSE $(uptime -p)"
-	echo "$BLUE > Speicherplatz Root:$CLOSE $(df -hT '/' | grep '/' | awk '{print $5}') frei ($(df -hT / | grep / | awk '{print $6}') benutzt)$CLOSE"
-	echo "$BLUE > Speicherplatz Home:$CLOSE $(df -hT '/home' | grep '/home' | awk '{print $5}') frei ($(df -hT / | grep / | awk '{print $6}') benutzt)$CLOSE"
-	printf '%*s\n' "${COLUMNS}" '' | tr ' ' -
-	#echo
-	#echo "$CYAN[DEVICES]$CLOSE"
-	#echo "$BLUE > Über USB angeschlossen:$CLOSE $(ls /media/teamcons/)"
-	#if [[$(lsusb | grep thethering)]]; then echo "$BLUE > Tethering:$CLOSE";fi
 
-}
+printf '%*s\n' "${COLUMNS}" '' | tr ' ' -
+echo "$CYAN[LOCAL]$CLOSE"
+echo "$BLUE > OS: $CLOSE$(cat /etc/os-release | grep -v "UBUNTU" | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/"//g')"
+echo "$BLUE > Rechner:$CLOSE $HOSTNAME" 
+echo "$BLUE > In betrieb:$CLOSE $(uptime -p)"
+echo "$BLUE > Speicherplatz Root:$CLOSE $(df -hT '/' | grep '/' | awk '{print $5}') frei ($(df -hT / | grep / | awk '{print $6}') benutzt)$CLOSE"
+echo "$BLUE > Speicherplatz Home:$CLOSE $(df -hT '/home' | grep '/home' | awk '{print $5}') frei ($(df -hT / | grep / | awk '{print $6}') benutzt)$CLOSE"
+printf '%*s\n' "${COLUMNS}" '' | tr ' ' -
+#echo
+#echo "$CYAN[DEVICES]$CLOSE"
+#echo "$BLUE > Über USB angeschlossen:$CLOSE $(ls /media/teamcons/)"
+#if [[$(lsusb | grep thethering)]]; then echo "$BLUE > Tethering:$CLOSE";fi
 
-function ss_remote()
-{
+
+
 	#REMOTE PANEL
-	echo "$CYAN[REMOTE]$CLOSE"
-	if ip r >> /dev/null
-	then echo "$BLUE > Internet:$CLOSE Verbunden" 
-	else echo "$BLUE > Internet:$RED GETRENNT$CLOSE" 
-	fi
-
-	#BACKUP DRIVE
-	if [ -e /media/stella/STOREIT/ ]
-	then echo "$BLUE > Backup drive:$CLOSE Verbunden"
-	else echo "$BLUE > Backup drive:$RED GETRENNT$CLOSE"
-	fi
-	echo
-}
-
-###################################################
-
-
+#	echo "$CYAN[REMOTE]$CLOSE"
+#	if ip r >> /dev/null
+#	then echo "$BLUE > Internet:$CLOSE Verbunden" 
+#	else echo "$BLUE > Internet:$RED GETRENNT$CLOSE" 
+#	fi
+#
+#	#BACKUP DRIVE
+#	if [ -e /media/stella/STOREIT/ ]
+#	then echo "$BLUE > Backup drive:$CLOSE Verbunden"
+#	else echo "$BLUE > Backup drive:$RED GETRENNT$CLOSE"
+#	fi
+#	echo
 
 
 ###################################################
 
-# If inside toolbox do something
-if [[ "$(hostname)" == "toolbox" ]];
-	then
-		# enclose nonprintable in \[ and \] to avoid display bug
-		PS1="\[\n\]\[$YELLOW\] \[📦TOOLBOX\]\[$BLUE\]\$PWD\n \[${YELLOW}\]-->\[$STOP\] "	
-	
-	#Normal prompt
-	else
-		# enclose nonprintable in \[ and \] to avoid display bug
+
 		PS1="\[\n\]\[$GREEN\] \[$HOSTNAME\]\[$BLUE\]\$PWD\n \[${YELLOW}\]-->\[$STOP\] "
-		ss_welcome
-		ss_local
-		#ss_remote
-	
-fi
+
+###################################################
+
+# If inside toolbox different PS1
+#if [[ "$(hostname)" == "toolbox" ]]
+#	then
+#		# enclose nonprintable in \[ and \] to avoid display bug
+#		PS1="\[\n\]\[$YELLOW\] \[📦TOOLBOX\]\[$BLUE\]\$PWD\n \[${YELLOW}\]-->\[$STOP\] "
+
+#	#Normal prompt
+#	else
+#		# enclose nonprintable in \[ and \] to avoid display bug
+#		PS1="\[\n\]\[$GREEN\] \[$HOSTNAME\]\[$BLUE\]\$PWD\n \[${YELLOW}\]-->\[$STOP\] "
+#fi
 
 ###################################################
 

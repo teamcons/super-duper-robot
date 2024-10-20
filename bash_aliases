@@ -1,23 +1,25 @@
 
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+#if [ -x /usr/bin/dircolors ]; then
+#    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+#    alias ls='ls --color=auto'
+#    alias dir='dir --color=auto'
+#    alias vdir='vdir --color=auto'
+#    alias grep='grep --color=auto'
+#    alias fgrep='fgrep --color=auto'
+#    alias egrep='egrep --color=auto'
+#fi
 
 
 
 
 ### CONFORT ###
-alias ls='ls --group-directories-first --color=auto -F'
-alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias ls='ls --group-directories-first --color=auto --hyperlink'
+alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
+alias la='ll -a'
+alias l='ll -d .*'
+
 alias cp="cp -vRi"
 alias du='du -h'
 alias rm='rm -vri'
@@ -36,11 +38,23 @@ alias sn='sudo nano'
 
 alias e=exit
 alias o=xdg-open
-alias te="toolbox enter"
 
 
 alias mediacenter="ssh -v -X 192.168.0.204"
 
 
 alias asremote="git fetch origin ; git reset --hard origin/main ; git clean -df ; git pull"
+
+
+
+### SYSTEM
+
+
+alias fin="flatpak install --system --or-update -y"
+alias fr="flatpak remove"
+
+alias saa="sudo apt autoremove"
+alias sai="sudo apt install"
+
+alias files="io.elementary.files --new-window"
 

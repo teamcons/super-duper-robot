@@ -5,7 +5,7 @@
 #cat ~/.bashrc > ./bashrc
 
 #Save flatpak apps
-flatpak list --columns=application --app | grep -v "org.gnome." | grep -v "io.elementary." > ./flatlist_apps
+flatpak list --columns=application --app | grep -v "org.gnome." | grep -v "io.elementary." | tee  > ./flatlist_apps
 
 flatpak list --columns=application --app | grep "org.gnome." > ./gnome_flatlist
 

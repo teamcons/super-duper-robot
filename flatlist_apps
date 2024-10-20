@@ -1,10 +1,15 @@
 com.discordapp.Discord
-com.modrinth.ModrinthApp
+com.github.donadigo.appeditor
+com.github.ryonakano.louper
+com.github.tchx84.Flatseal
+com.github.unrud.VideoDownloader
 com.spotify.Client
+com.termius.Termius
 com.usebottles.bottles
 com.valvesoftware.Steam
 com.vixalien.sticky
-io.missioncenter.MissionCenter
+io.github.celluloid_player.Celluloid
+io.github.pantheon_tweaks.pantheon-tweaks
 org.beeref.BeeRef
 org.mozilla.firefox
 org.onlyoffice.desktopeditors
