@@ -1,5 +1,9 @@
+org.gnome.DejaDup
+org.gnome.Epiphany
 org.gnome.Evince
 org.gnome.FileRoller
 org.gnome.Loupe
+org.gnome.Showtime
+org.gnome.SimpleScan
 org.gnome.font-viewer
 org.gnome.seahorse.Application

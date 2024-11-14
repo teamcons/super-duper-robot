@@ -15,7 +15,7 @@
 
 
 ### CONFORT ###
-alias ls='ls --group-directories-first --color=auto --hyperlink'
+alias ls='ls --group-directories-first --color=auto --hyperlink=auto --sort=time'
 alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
 alias la='ll -a'
 alias l='ll -d .*'
