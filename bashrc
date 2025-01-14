@@ -168,3 +168,9 @@ alias whitesur="./install.sh -l -c Light --round --shell -i simple -t"
 #override GTK_THEME=WhiteSur-Light-green
 # ICON_THEME=bloom-classic-fixed
 #export GTK_THEME=Yaru
+
+alias preparethis="meson build prefix=/usr; cd build; ninja; sudo ninja install"
+alias ,pt="preparethis"
+alias sni="sudo ninja install"
+
+alias flatbuild="flatpak-builder --force-clean --user --install-deps-from=appcenter --repo=repo --install builddir"
